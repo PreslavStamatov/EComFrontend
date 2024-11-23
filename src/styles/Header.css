@@ -1,0 +1,131 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 120px;
+}
+
+.upperHeader {
+  display: flex;
+  background-color: grey;
+  height: 60%;  
+  justify-content: space-around;
+  position: relative;
+  z-index: 3;
+  background-color: rgba(255, 255, 255, 0);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(20, 20, 20, 0.2));
+  transition: 0.5s;
+
+}
+
+.lowerHeader {
+  display: flex;
+  height: 40%;
+  align-items: center;
+  justify-content: space-evenly;
+  position: relative;
+  z-index: 3;
+  background-color: rgba(255, 255, 255, 0);
+  background-image: linear-gradient(rgba(20, 20, 20, 0.2), rgba(0, 0, 0, 0.007));
+  transition: 0.5s;
+}
+
+
+
+.regionSettings {
+  font-size: 12px;
+  width: 10%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+  color: white;
+}
+
+.logoContainer {
+  width: 200px;
+  height: 100%;
+}
+
+.headerLogo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.backgroundImg {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.headerOptions {
+  width: 14%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.headerOption {
+  color: white;
+}
+
+.headerFilters {
+  position: relative;
+  right: 25px;
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  height: 100%;
+}
+
+.headerFilters > p {
+  color: white;
+  font-weight: 600;
+  font-size: 13px;
+  margin: 0px;
+  margin-top: 20px;
+}
+
+.headerFilters > p:hover{
+  color: black;
+}
+
+
+.searchbarContainer {
+  border-bottom: 2px solid white;
+  position: relative;
+  left: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 11%;
+  height: 60%;
+}
+
+.headerFilter {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.headerFilter:hover {
+  color: black;
+}
+
+.headerFilter::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 10px;
+  left: 50%;
+  background-color: rgb(255, 105, 210);
+  transition: width 0.4s ease, left 0.4s ease;
+}
+
+.headerFilter:hover::after {
+  width: 100%;
+  left: 0;
+}
