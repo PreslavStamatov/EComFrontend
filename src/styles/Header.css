@@ -2,35 +2,26 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 120px;
+  height: 140px;
 }
 
 .upperHeader {
   display: flex;
-  background-color: grey;
   height: 60%;  
-  justify-content: space-around;
+  justify-content: space-evenly;
   position: relative;
-  z-index: 3;
-  background-color: rgba(255, 255, 255, 0);
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(20, 20, 20, 0.2));
   transition: 0.5s;
-
 }
 
 .lowerHeader {
   display: flex;
   height: 40%;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   position: relative;
-  z-index: 3;
-  background-color: rgba(255, 255, 255, 0);
-  background-image: linear-gradient(rgba(20, 20, 20, 0.2), rgba(0, 0, 0, 0.007));
   transition: 0.5s;
+  border-bottom: 1px solid rgb(231, 231, 231);
 }
-
-
 
 .regionSettings {
   font-size: 12px;
@@ -43,7 +34,7 @@
 }
 
 .logoContainer {
-  width: 200px;
+  width: 500px;
   height: 100%;
 }
 
@@ -69,27 +60,39 @@
 
 .headerOption {
   color: white;
+  cursor: pointer;
 }
 
 .headerFilters {
   position: relative;
-  right: 25px;
-  width: 50%;
-  display: flex;
-  justify-content: space-around;
+  width: 40%;
   height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.headerFilter{
+  border-radius: 40px;
+  height: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 1px solid #EB3986;
 }
 
 .headerFilters > p {
-  color: white;
+  color: black;
   font-weight: 600;
-  font-size: 13px;
-  margin: 0px;
-  margin-top: 20px;
+  font-size: 12px;
+  text-align: center;
+  height: max-content;
 }
 
+
+
 .headerFilters > p:hover{
-  color: black;
+  color: white;
+  background-color: pink;
 }
 
 
@@ -112,20 +115,4 @@
 
 .headerFilter:hover {
   color: black;
-}
-
-.headerFilter::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 2px;
-  bottom: 10px;
-  left: 50%;
-  background-color: rgb(255, 105, 210);
-  transition: width 0.4s ease, left 0.4s ease;
-}
-
-.headerFilter:hover::after {
-  width: 100%;
-  left: 0;
 }

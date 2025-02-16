@@ -1,8 +1,8 @@
 import React, { createContext, useEffect, useState } from "react";
-import { UserProfile } from "../Models/User"
+import { JwtPayload, UserProfile } from "../Models/User"
 import { useNavigate } from "react-router-dom"
 import axios from "axios";
-import { loginAPI, registerAPI } from "../Services/AuthService";
+import { homePageAPI, loginAPI, registerAPI } from "../Services/AuthService";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -13,6 +13,8 @@ type UserContextType = {
     loginUser: (email: string, password: string) => void;
     logout: () => void;
     isLoggedIn: () => void;
+    loadUserData: () => void;
+    isTokenExpired:() => boolean;
 };
 
 type Props = { children: React.ReactNode };
@@ -47,7 +49,7 @@ export const UserProvider = ({ children }: Props) => {
                 };
                 localStorage.setItem("user", JSON.stringify(userObject));
                 setToken(result?.data.token);
-                setUser(userObject!);
+                // setUser(result?.data.);
                 toast.success("Login Success!");
                 navigate("/");
             }
@@ -58,12 +60,9 @@ export const UserProvider = ({ children }: Props) => {
 
     const loginUser = async (email: string, password: string) => {
         try {
-          // Call the loginAPI function that sends the login request to the backend
           const result = await loginAPI(email, password);
       
-          // Check if the result exists (meaning login was successful)
           if (result) {
-            // Store the token and user information in localStorage
             localStorage.setItem("token", result?.accessToken);
             console.log('token set local storage')
             // const userObject = {
@@ -74,20 +73,27 @@ export const UserProvider = ({ children }: Props) => {
       
             // Update the state variables (e.g., setToken and setUser) for app-wide access
             setToken(result?.accessToken);
-            // setUser(userObject!);
+            // setUser();
       
             // Show a success message using toast
             toast.success("Login Success!");
       
+            
+
             // Navigate to the home page
             navigate("/home");
+
           }
         } catch (err) {
           // Handle errors during the login process (e.g., network issues, incorrect credentials)
           toast.warning("Server error occurred!");
         }
-      };
-      
+    };
+        
+    const loadUserData = async () => {
+        const userData: UserProfile = await homePageAPI();
+        setUser(userData);
+    }
 
     const isLoggedIn = () => {
         return !!user;
@@ -101,9 +107,32 @@ export const UserProvider = ({ children }: Props) => {
         navigate("/");
     };
 
+    const isTokenExpired = (): boolean => {
+        // Decode JWT (the second part of the token, which is the payload)
+        let expirationTime: number = 0;
+        let currentTime: number = Math.floor(Date.now() / 1000); // Get current time in seconds
+  
+        if (token) {
+            const payload = token.split('.')[1]; // Get the second part of the token (payload)
+    
+        try {
+            const decodedPayload: JwtPayload = JSON.parse(atob(payload));
+            expirationTime = decodedPayload.exp; // Get the expiration time from the token
+
+            // Return true if expired, false if not
+            return expirationTime < currentTime;
+        } catch (error) {
+            console.error("Error decoding the token:", error);
+             return true; // In case of error, consider the token as expired or invalid
+        }
+  }
+
+    return true; // If there's no token, consider it as expired
+      };
+
     return (
         <UserContext.Provider
-            value={{ loginUser, user, token, logout, isLoggedIn, register }}>
+            value={{ loginUser, user, token, logout, isLoggedIn, register, loadUserData, isTokenExpired }}>
             {isReady ? children : null}
         </UserContext.Provider>
     )

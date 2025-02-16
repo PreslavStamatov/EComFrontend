@@ -1,5 +1,5 @@
 import axios from "axios";
-import { UserProfileToken } from "../Models/User";
+import { UserProfile, UserProfileToken } from "../Models/User";
 import { handleError } from "../Helpers/ErrorHandler";
 
 const api = "http://localhost:8080/api/auth";
@@ -50,7 +50,7 @@ export const registerAPI = async (email: string, username: string, password: str
     }    
 }
 
-export const homePageAPI = async () => {
+export const homePageAPI = async () =>  {
     try {
       const response = await fetch(`http://localhost:8080/api/user/data`, {
         method: "GET",

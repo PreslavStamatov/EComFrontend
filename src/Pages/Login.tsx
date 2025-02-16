@@ -1,34 +1,26 @@
 import React, { useEffect, useState } from 'react'
-import SecondaryHeader from '../Components/SecondaryHeader';
-import Header from '../Components/Header';
 import LoginForm from '../Components/LoginForm';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../Context/useAuth';
 
 const Login = () => {
-    const [scrollY, setScrollY] = useState(0);
-  const [makeup, setMakeup] = useState([]);
-  const threshold = 1; // The scroll value to switch components
+  const navigate = useNavigate();
+  const { isTokenExpired } = useAuth();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    // Clean up the event listener on component unmount
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+    const isJWTExpired = isTokenExpired();
+    if(localStorage.getItem("token") && !isJWTExpired) {
+        navigate("/home");
+    } else if(isJWTExpired){
+      localStorage.removeItem("token");
+    }
+}, [])
 
   return (
-    <>
-      <div className='login-page-container' style={{ display: 'flex', flexDirection: 'column' }}>
-        {scrollY > threshold ? <SecondaryHeader/> : <Header/>}
-      </div>
-
+    <div className="flex items-center m-auto justify-center bg-gray-100 mt-10"
+          style={{width: '38%'}}>
       <LoginForm></LoginForm>
-    </>
+    </div>
   )
 }
 
