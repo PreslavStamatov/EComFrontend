@@ -23,7 +23,8 @@ export const ShoppingCartProvider = ({ children }: Props) => {
 
     useEffect(() => {
         if (user) {
-            setUserProducts(aggregateCart(user.shoppingBag.products));
+            console.log(user.shoppingBag.products)
+            setUserProducts(user.shoppingBag.products);
         }
     }, [user]);
 

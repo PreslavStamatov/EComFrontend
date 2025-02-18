@@ -1,7 +1,7 @@
 import React from 'react'
 import '../styles/HoveredShoppingCartProduct.css'
 import { HoveredShoppingCartProductType } from '../Models/Product';
-import { isShade } from '../Services/ShoppingCartService';
+import { isShade, removeCartProductFromDB } from '../Services/ShoppingCartService';
 import ProductQuantityDropdown from './ProductQuantityDropdown';
 
 const HoveredShoppingCartProduct: React.FC<HoveredShoppingCartProductType> = ({product}) => {
@@ -19,6 +19,9 @@ const HoveredShoppingCartProduct: React.FC<HoveredShoppingCartProductType> = ({p
       <p
       style={{backgroundColor:'white', border:'none', marginLeft:'130px', marginBottom:'10px', fontWeight:'500', textDecoration:'underline'}}>Remove</p>
       </div>
+
+      <div className='w-52 h-52 border-2'
+        onClick={() => removeCartProductFromDB(product)}></div>
     </div>
   )
 }

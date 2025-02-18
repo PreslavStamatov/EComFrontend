@@ -6,13 +6,11 @@ import ReviewButton from '../Components/ReviewButton';
 import ReviewWriting from '../Components/ReviewWriting';
 import { useAuth } from '../Context/useAuth';
 import { useProductsContext } from '../Context/useProductContext';
-import { fetchSpecificProduct } from '../Services/ProductsService';
 import Rating from '@mui/material/Rating';
 import ShadeButton from '../Components/ShadeButton';
-import { Shade } from '../Models/User';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useShoppingCartContext } from '../Context/useShoppingCartContext';
-import { addCartProductToDB } from '../Services/ShoppingCartService';
+import { addCartProductToDB, removeCartProductFromDB } from '../Services/ShoppingCartService';
 import "../styles/HomePageProduct.css"
 
 const ProductPage:React.FC = ({}) => {
