@@ -15,6 +15,7 @@ export type Shade = {
 export type Product = {
     makeup: Makeup,
     shade: Shade,
+    quantity: number,
 }
 
 export type Makeup = {
